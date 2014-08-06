@@ -41,7 +41,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("~/.config/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/CustomTheme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt -fg Black -bg White -rv"
@@ -127,33 +127,36 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
--- Create a textclock widget
-mytextclock = awful.widget.textclock()
+--Custom icon separators (powerarrow)
+arrl_ld = wibox.widget.imagebox()
+arrl_ld:set_image(beautiful.arrl_ld)
 
--- battery widget
---batterywidget = wibox.widget.textbox()
---batterywidget:set_text(" | Battery | ")
---batterywidgettimer = timer({ timeout = 10 })
---batterywidgettimer:connect_signal("timeout",
---	function()
---		fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
---		batterywidget:set_text(" |" .. fh:read("*l") .. " | ")
---		fh:close()
---	end
---)
---batterywidgettimer:start()
+-- Create a textclock widget
+mytextclock = wibox.widget.textbox()
+vicious.register(mytextclock,vicious.widgets.date, '<span font="sans 11" color="#AAAAAA" background="#313131"> %b %d, %I:%M </span>',20)
 
 --Vicious Battery Widget
 batterywidget = wibox.widget.textbox()
-vicious.register(batterywidget, vicious.widgets.bat, " | $2%,$3 | ", 30, "BAT0" )
+vicious.register(batterywidget, vicious.widgets.bat, '<span font="sans 11" color="#AAAAAA" background="#313131"> $2%, $3 |</span>', 30, "BAT0" )
 
 --Vicious file system size widget
 fswidget = wibox.widget.textbox()
-vicious.register(fswidget,vicious.widgets.fs, "  ||| ${/ avail_gb} GB ", 800)
+vicious.register(fswidget,vicious.widgets.fs, '<span font="sans 11" color="#AAAAAA" background="#313131"> ${/ avail_gb} GB |</span>', 800)
 
 --Vicious volume widget
 volume = wibox.widget.textbox()
-vicious.register(volume,vicious.widgets.volume, "| Vol:$1 $2", 0.3, "Master")
+vicious.register(volume,vicious.widgets.volume, '<span font="sans 11" color="#AAAAAA" background="#313131"> Vol:$1</span>', 0.3, "Master")
+
+volume_icon = wibox.widget.textbox()
+vicious.register(volume_icon,vicious.widgets.volume, function(widget, args)
+    local para = tonumber(args[1])
+    if args[2] == "♩" or para == 0 then
+        return '<span font="sans 11" color="#AAAAAA" background="#313131"> |</span>'
+    elseif para >= 1 then
+        return '<span font="sans 11" color="#AAAAAA" background="#313131"> on |</span>'
+    end
+
+end, 0.3, "Master")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -232,8 +235,10 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(arrl_ld)
     right_layout:add(fswidget)
     right_layout:add(volume)
+    right_layout:add(volume_icon)
     right_layout:add(batterywidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
