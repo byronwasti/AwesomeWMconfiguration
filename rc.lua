@@ -13,7 +13,6 @@ local menubar = require("menubar")
 -- Vicious library for widgets
 vicious = require("vicious")
 
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -112,9 +111,9 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "terminal", terminal },
                                     { "firefox", "firefox" },
                                     { "xchat_irc", "xchat" },
-			            { "graphics", graphics},
-				    { "df", dwarffortress },
-				    { "libre office", "libreoffice" },
+                                    { "graphics", graphics},
+                                    { "df", dwarffortress },
+                                    { "libre office", "libreoffice" },
                                     { "shutdown", "sudo /sbin/shutdown now" }
                                   }
                         })
@@ -133,7 +132,7 @@ arrl_ld:set_image(beautiful.arrl_ld)
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textbox()
-vicious.register(mytextclock,vicious.widgets.date, '<span font="sans 11" color="#AAAAAA" background="#313131"> %b %d, %I:%M </span>',20)
+vicious.register(mytextclock,vicious.widgets.date, '<span font="sans 11" color="#AAAAAA" background="#313131"> %a %b %d, %I:%M </span>',20)
 
 --Vicious Battery Widget
 batterywidget = wibox.widget.textbox()
