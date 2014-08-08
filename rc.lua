@@ -63,13 +63,13 @@ local layouts =
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+--    awful.layout.suit.fair,
+--    awful.layout.suit.fair.horizontal,
+--    awful.layout.suit.spiral,
+--    awful.layout.suit.spiral.dwindle,
+--    awful.layout.suit.max,
+--    awful.layout.suit.max.fullscreen,
+--    awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -137,7 +137,7 @@ vicious.register(mytextclock,vicious.widgets.date, '<span font="sans 11" color="
 
 --Vicious Battery Widget
 batterywidget = wibox.widget.textbox()
-vicious.register(batterywidget, vicious.widgets.bat, '<span font="sans 11" color="#AAAAAA" background="#313131"> $2%, $3 |</span>', 30, "BAT0" )
+vicious.register(batterywidget, vicious.widgets.bat, '<span font="sans 11" color="#AAAAAA" background="#313131"> $2% |</span>', 30, "BAT0" )
 
 --Vicious file system size widget
 fswidget = wibox.widget.textbox()
