@@ -43,7 +43,7 @@ end
 beautiful.init("~/.config/awesome/CustomTheme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt -fg Black -bg White -rv"
+terminal = "urxvt -fg Black -bg White -rv -fn 'xft:Ubuntu Mono:pixelsize=14,syle=Regular' "
 editor =  "vim"
 editor_cmd = "sudo " .. terminal .. " -e " .. editor
 
@@ -105,14 +105,21 @@ dwarffortress = {
    { "dwarf fortress", "dwarffortress-ih" },
    { "dwarf therapist", "dwarftherapist" },
 }
+Social = {
+   { "skype", "skype" },
+   { "xchat_irc", "xchat" },
+   { "utox", "utox" },
+}
 
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "terminal", terminal },
-                                    { "firefox", "firefox" },
-                                    { "xchat_irc", "xchat" },
+                                    { "chromium", "chromium" },
+                                    { "thunderbird", "thunderbird" },
+                                    { "spotify","spotify" },
                                     { "graphics", graphics},
                                     { "df", dwarffortress },
+                                    { "social", Social },
                                     { "libre office", "libreoffice" },
                                     { "shutdown", "sudo /sbin/shutdown now" }
                                   }
@@ -156,6 +163,11 @@ vicious.register(volume_icon,vicious.widgets.volume, function(widget, args)
     end
 
 end, 0.3, "Master")
+
+-- Wifi connectivity widget
+--wifi = wibox.widget.textbox()
+--vicious.register(wifi,vicious.widgets.wifi,'Wifi ${linp}','wlp1s0')
+
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -235,6 +247,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(arrl_ld)
+    --right_layout:add(wifi)
     right_layout:add(fswidget)
     right_layout:add(volume)
     right_layout:add(volume_icon)
@@ -403,6 +416,10 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { class = "vlc" },
+      properties = { floating = true } },
+    { rule = { class = "Spotify" },
+      properties = { floating = false } },
     { rule = { class = "Exe"},
       properties = {floating = true } },
     { rule = { class = "Plugin-container"},
